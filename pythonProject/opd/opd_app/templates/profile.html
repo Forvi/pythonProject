@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+{% if paths|length == 0 %}
+    <p>Пусто</p>
+{% else %}
+{% for path in paths %}
+<div>
+    <div>
+        <h1 style="position:absolute;left:60%;">{{ path.name }}</h1>
+        <img style="position:absolute;left:20%;" src="{{ path.hotel_Main_Img.url }}">
+        <p style="position:absolute;left:60%; margin-top: 70px">{{ path.text }}</p>
+        <a href="{% url 'path' path.pk %}">aaa</a>
+        <button onclick="document.location='{% url 'del_path' path.pk %}'" style="background-color:red;">Удалить</button>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+</body>
+</html>

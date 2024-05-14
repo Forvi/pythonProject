@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{path.name}}</title>
+</head>
+<body>
+<div>
+    <div>
+        <h1 style="position:absolute;left:60%;">{{ path.name }}</h1>
+        <img style="position:absolute;left:20%;" src="{{ path.hotel_Main_Img.url }}">
+        <p style="position:absolute;left:60%; margin-top: 70px">{{ path.text }}</p>
+        {% if path.author.pk == author_id %}
+        <h2>Редактирование</h2>
+        <form method="post" name="" style="display: inline-block;" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="margin-bottom: 10px;">
+                <textarea placeholder="Описание" name="text"></textarea>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input placeholder="Протяженность" name="length" type="number">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input placeholder="Название" name="name">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input placeholder="Маршрут" name="image" id="image" type="file" multiple accept="image/*">
+
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input type="submit">
+            </div>
+            <p style="color: red;">{{ error_message }}</p>
+        </form>
+        {% endif %}
+
+
+        <div name="comment">
+            <textarea id="text_comment"></textarea>
+            <a href="#" onclick="create_comment({{ path.pk }})">Добавить</a>
+        </div>
+
+        {% if comment|length != 0 %}
+            {% for i in comment %}
+                <div>{{ i.text }}</div>
+
+            {% endfor %}
+        {% else %}
+            <div>Пусто</div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+            create_comment = async (pk) => {
+                const text = document.getElementById('text_comment');
+                const res = await fetch(`/create_comment/${pk}?text_comment=${text.value}`).then(res => res.json());
+                location.reload();
+        }
+</script>
+
+</body>
+</html>
