@@ -112,13 +112,12 @@ class Redactor(View):
 
 class PagePath(View):
     def get(self, request, pk):
-
         context = {
             'path': pagePath(pk),
             'author_id': request.session.get("user"),
             'comment': Comments.objects.filter(path_id=pk),
         }
-        print(Comments.objects.filter(path_id=pk))
+        print()
         return render(request, 'path.html', context=context)
 
     def post(self, request, pk):

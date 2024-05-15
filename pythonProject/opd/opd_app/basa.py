@@ -18,7 +18,6 @@ def loginacc(login, password):
 
 def all_path():
     paths = Path.objects.all()
-    print(paths)
     return paths
 
 def pagePath(pk):
@@ -31,4 +30,3 @@ def path_user(user_id):
 
 def get_user_on_pk(user_id):
     return Users.objects.get(pk=user_id)
-

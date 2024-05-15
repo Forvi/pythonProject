@@ -39,26 +39,37 @@
         <div name="comment">
             <textarea id="text_comment"></textarea>
             <a href="#" onclick="create_comment({{ path.pk }})">Добавить</a>
+            <p id="comment_error-mesage"></p>
+
         </div>
 
         {% if comment|length != 0 %}
-            {% for i in comment %}
-                <div>{{ i.text }}</div>
+        {% for i in comment %}
+        <div style="border: 1px solid black; margin-bottom: 4px; color: red;">
+            {{ i.text }}
+            {{ i.date }}
+        </div>
 
-            {% endfor %}
+        {% endfor %}
         {% else %}
-            <div>Пусто</div>
+        <div>Пусто</div>
         {% endif %}
 
     </div>
 </div>
 
 <script>
-            create_comment = async (pk) => {
-                const text = document.getElementById('text_comment');
-                const res = await fetch(`/create_comment/${pk}?text_comment=${text.value}`).then(res => res.json());
-                location.reload();
+    create_comment = async (pk) => {
+        const error_message = document.getElementById('comment_error-mesage')
+        const text = document.getElementById('text_comment');
+        if (text.value.length != 0) {
+            const res = await fetch(`/create_comment/${pk}?text_comment=${text.value}`).then(res => res.json());
+            location.reload();
         }
+        else {
+            error_message.innerHTML = "Комментарий не может быть пустым";
+        }
+    }
 </script>
 
 </body>

@@ -14,5 +14,6 @@ class Path(models.Model):
 class Comments(models.Model):
     path = models.ForeignKey(Path, on_delete=models.CASCADE)
     author = models.ForeignKey(Users, on_delete=models.CASCADE)
+    author_name = models.CharField(max_length=5)
     text = models.CharField(max_length=120)
     date = models.DateTimeField(auto_now_add=True)
