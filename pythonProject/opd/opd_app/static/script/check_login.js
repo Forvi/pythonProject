@@ -1,12 +1,12 @@
-$(document).ready(function() {
-    $("#createpath").click(function() {
+$(document).ready(function () {
+    $("#createpath").click(function () {
         $.ajax({
             type: "POST",
             url: "/check_user/",
             data: {
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.is_authenticated) {
                     window.location.href = "/redactor";
                 } else {
@@ -14,11 +14,9 @@ $(document).ready(function() {
                     errorMessageParagraph.textContent = response.error_message;
                 }
             },
-            error: function(xhr, textStatus, errorThrown) {
+            error: function (xhr, textStatus, errorThrown) {
                 // позже сделать обработчик ошибок
             }
         });
     });
 });
-
-console.log("успешно");

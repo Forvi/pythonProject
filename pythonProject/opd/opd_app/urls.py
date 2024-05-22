@@ -14,6 +14,7 @@ urlpatterns = [
     path('profile', Profile.as_view()),
     path('del_path/<pk>', del_path, name="del_path"),
     path('check_user/', CheckUserView.as_view(), name='check_user'),
-    path('create_comment/<pk>', create_comment, name='create_comment')
+    path('create_comment/<pk>', create_comment, name='create_comment'),
+    path('add_fav/<pk>', add_favorite, name="add_fav"),
 
 ]

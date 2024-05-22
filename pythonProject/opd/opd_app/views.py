@@ -1,6 +1,6 @@
 from pathlib import Path
-
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import View
 from .basa import *
@@ -88,8 +88,6 @@ def check_login(login):
 
 class Main(View):
     def get(self, request):
-
-
         paths = all_path()
         context = {
             'paths': paths
@@ -99,6 +97,10 @@ class Main(View):
 #adsada
 class Redactor(View):
     def get(self, request):
+        user_id = request.session.get("user")
+        check_on_auto(user_id)
+        if not check_on_auto(user_id):
+            return HttpResponseRedirect('signup')
         return render(request, 'redactor.html')
 
     def post(self, request):
@@ -117,7 +119,6 @@ class PagePath(View):
             'author_id': request.session.get("user"),
             'comment': Comments.objects.filter(path_id=pk),
         }
-        print()
         return render(request, 'path.html', context=context)
 
     def post(self, request, pk):
@@ -140,8 +141,12 @@ class PagePath(View):
 class Profile(View):
     def get(self, request):
         user_id = request.session.get("user")
+        check_on_auto(user_id)
+        if not check_on_auto(user_id):
+            return HttpResponseRedirect('signup')
         context = {
-            'paths': path_user(user_id)
+            'paths': path_user(user_id),
+            'user': get_user_on_pk(user_id)
         }
         return render(request, 'profile.html', context=context)
 
@@ -165,3 +170,21 @@ class CheckUserView(View):
             return JsonResponse({'is_authenticated': True})
         else:
             return JsonResponse({'is_authenticated': False, 'error_message': 'Войдите в аккаунт'})
+
+def add_favorite(request, pk):
+    user_id = request.session.get("user")
+    check_on_add = Favorites.objects.filter(user=get_user_on_pk(user_id), path=pagePath(pk))
+    if len(check_on_add) == 0:
+        add_fav = Favorites(user=get_user_on_pk(user_id), path=pagePath(pk))
+        add_fav.save()
+    print(check_on_add)
+    return JsonResponse({'is_authenticated': True})
+
+def create_avatar(request):
+    user_id = request.session.get("user")
+    user_avatar = get_user_on_pk(user_id)
+    user_avatar.avatar = request.FILES.get('avatar100')
+    print("_____________________")
+    print(user_avatar.avatar)
+    user_avatar.save()
+    return JsonResponse({'status': 200})

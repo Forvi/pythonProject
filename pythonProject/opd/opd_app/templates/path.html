@@ -9,6 +9,7 @@
 <div>
     <div>
         <h1 style="position:absolute;left:60%;">{{ path.name }}</h1>
+        <p style="color: red;">{{ path.date }}</p>
         <img style="position:absolute;left:20%;" src="{{ path.hotel_Main_Img.url }}">
         <p style="position:absolute;left:60%; margin-top: 70px">{{ path.text }}</p>
         {% if path.author.pk == author_id %}
@@ -34,8 +35,6 @@
             <p style="color: red;">{{ error_message }}</p>
         </form>
         {% endif %}
-
-
         <div name="comment">
             <textarea id="text_comment"></textarea>
             <a href="#" onclick="create_comment({{ path.pk }})">Добавить</a>
@@ -45,7 +44,8 @@
 
         {% if comment|length != 0 %}
         {% for i in comment %}
-        <div style="border: 1px solid black; margin-bottom: 4px; color: red;">
+        <div style="border: 1px solid black; margin-bottom: 4px;">
+            {{ i.author.login }}
             {{ i.text }}
             {{ i.date }}
         </div>

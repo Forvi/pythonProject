@@ -1,24 +1,53 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
 </head>
 <body>
+
+<div>
+    {% if avatar is None %}
+    <img src="{% static 'default.jpg' %}">
+    {% else %}
+    <img style="position:absolute;left:20%; width: 20%" src="{{ user.avatar.url }}">
+    {% endif %}
+</div>
+
+
+<input type="file" name="avatar100" id="avatar_button" multiple accept="image/*">
+<a href="#" onclick="create_avatar()">загрузить</a>
+
+{% if user %}
+<p>Welcome, {{ user.login }}!</p>
+{% else %}
+<p>You are not logged in.</p>
+{% endif %}
+
 {% if paths|length == 0 %}
-    <p>Пусто</p>
+<p>Пусто</p>
 {% else %}
 {% for path in paths %}
 <div>
     <div>
         <h1 style="position:absolute;left:60%;">{{ path.name }}</h1>
-        <img style="position:absolute;left:20%;" src="{{ path.hotel_Main_Img.url }}">
+        <img style="position:absolute;left:20%; width: 20%" src="{{ path.hotel_Main_Img.url }}">
         <p style="position:absolute;left:60%; margin-top: 70px">{{ path.text }}</p>
         <a href="{% url 'path' path.pk %}">aaa</a>
-        <button onclick="document.location='{% url 'del_path' path.pk %}'" style="background-color:red;">Удалить</button>
+        <button onclick="document.location='{% url 'del_path' path.pk %}'" style="background-color:red;">Удалить
+        </button>
     </div>
 </div>
 {% endfor %}
 {% endif %}
+
+<script src="{% static '/script/test.js' %}"></script>
+<script>
+    create_avatar = async() => {
+        const res = await fetch(`/create_avatar`).then(res => res.json());
+    }
+
+</script>
 </body>
 </html>

@@ -13,13 +13,14 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
+
 /* display-role reset for older browsers */
 
 a {
@@ -39,6 +40,7 @@ body {
     width: 100%;
     height: 100%;
 }
+
 .video-bg {
     height: 72vh;
     width: 100%;
@@ -48,6 +50,7 @@ body {
     align-items: center;
     position: relative;
 }
+
 .video-bg video {
     position: absolute;
     top: 0;
@@ -57,6 +60,7 @@ body {
     height: 100vh;
     object-fit: cover;
 }
+
 .effects {
     position: absolute;
     object-fit: cover;
@@ -65,8 +69,9 @@ body {
     z-index: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
+
 .video-bg__content {
     z-index: 2;
     text-align: center;
@@ -131,7 +136,7 @@ body {
     color: #222222;
 }
 
-.logo path{
+.logo path {
     transition: fill 0.3s;
     display: block;
 }
@@ -157,16 +162,138 @@ body {
     font-size: 16px;
 }
 
-.main_content {
-    display: flex;
-    flex-direction: column;
-}
-
 .upperinfo {
 
     border: 1px solid red;
 }
 
+.menu__item .menu__link .avatar {
+    width: 48px;
+    height: 48px;
+    background-color: red;
+    border-radius: 100%;
+}
+
+.create_button {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: #153B50;
+    text-align: center;
+    border: none;
+    border-radius: 100px;
+    padding: 8px 12px;
+    width: 180px;
+    height: 44px;
+    background-color: #16F4D0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create_button:hover {
+    background-color: #12CDAF;
+}
+
 .main_content {
-    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px;
+}
+
+.card_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.main_header {
+    font-family: "Evolventa", serif;
+    text-align: center;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+    color: #222222;
+    margin-bottom: 24px;
+}
+
+.path_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 1072px;
+    gap: 16px;
+}
+
+.path_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    width: 256px;
+    height: 324px;
+    box-sizing: border-box;
+}
+
+.path_item img {
+    width: 240px;
+    height: 248px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.path_item .card_name {
+    font-family: Onest, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 133%;
+    letter-spacing: -0.01em;
+    color: #222222;
+    text-align: left;
+}
+
+.card_info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.likes_container {
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+}
+
+.likes_container svg {
+    fill: #F21832;
+}
+
+.likes_container:hover svg {
+    fill: #C11328;
+}
+
+.card_info .info_likes {
+    font-family: Onest, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    color: rgba(34, 34, 34, 0.40);
+}
+
+.path_item card_length {
+    font-family: Onest, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.01em;
+    color: #222222;
+    text-align: left;
+}
+
+.path_item a {
+    margin-top: 20px;
+    text-align: center;
 }

@@ -1,10 +1,10 @@
 from .models import *
+from PIL import Image
 
 def registration(login, password):
     new_user = Users.objects.filter(login=login)
     if len(new_user) != 0:
         return False
-
     new_user = Users(login=login, password=password)
     new_user.save()
     return True
@@ -30,3 +30,8 @@ def path_user(user_id):
 
 def get_user_on_pk(user_id):
     return Users.objects.get(pk=user_id)
+
+def check_on_auto(user_id):
+    if user_id:
+        return True
+    return False
