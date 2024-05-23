@@ -180,11 +180,10 @@ def add_favorite(request, pk):
     print(check_on_add)
     return JsonResponse({'is_authenticated': True})
 
+
 def create_avatar(request):
     user_id = request.session.get("user")
     user_avatar = get_user_on_pk(user_id)
     user_avatar.avatar = request.FILES.get('avatar100')
-    print("_____________________")
-    print(user_avatar.avatar)
     user_avatar.save()
-    return JsonResponse({'status': 200})
+    return HttpResponseRedirect('../profile')
