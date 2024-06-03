@@ -170,7 +170,6 @@ body {
 .menu__item .menu__link .avatar {
     width: 48px;
     height: 48px;
-    background-color: red;
     border-radius: 100%;
 }
 

@@ -8,9 +8,11 @@ import re
 
 from django.http import JsonResponse
 
+
 def check_login_status(request):
     is_authenticated = request.user.is_authenticated
     return JsonResponse({'is_authenticated': is_authenticated})
+
 
 class Registration(View):
 
@@ -52,6 +54,8 @@ class Registration(View):
                 }
                 return render(request, 'registration.html', context=context)
 
+
+
 class Login(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -79,6 +83,7 @@ def check_password(password):
     else:
         return False
 
+
 def check_login(login):
     pattern = re.compile('^[A-Za-z0-9]+$')
     if re.match(pattern, login):
@@ -86,15 +91,17 @@ def check_login(login):
     else:
         return False
 
+
 class Main(View):
     def get(self, request):
         paths = all_path()
         context = {
-            'paths': paths
+            'paths': paths,
+            'user': get_user_on_pk(request.session.get("user"))
         }
         return render(request, 'main.html', context=context)
 
-#adsada
+
 class Redactor(View):
     def get(self, request):
         user_id = request.session.get("user")
@@ -112,11 +119,12 @@ class Redactor(View):
         form.save()
         return HttpResponseRedirect('main')
 
+
 class PagePath(View):
     def get(self, request, pk):
         context = {
             'path': pagePath(pk),
-            'author_id': request.session.get("user"),
+            'author_id': get_user_on_pk(request.session.get("user")),
             'comment': Comments.objects.filter(path_id=pk),
         }
         return render(request, 'path.html', context=context)
@@ -136,7 +144,8 @@ class PagePath(View):
         if image is not None:
             path.hotel_Main_Img = image
         path.save()
-        return HttpResponseRedirect('../path/'+str(pk))
+        return HttpResponseRedirect('../path/' + str(pk))
+
 
 class Profile(View):
     def get(self, request):
@@ -150,10 +159,12 @@ class Profile(View):
         }
         return render(request, 'profile.html', context=context)
 
+
 def del_path(request, pk):
     delete_path = Path.objects.get(pk=pk)
     delete_path.delete()
     return HttpResponseRedirect('../profile')
+
 
 def create_comment(request, pk):
     user = get_user_on_pk(request.session.get("user"))
@@ -164,12 +175,15 @@ def create_comment(request, pk):
     return JsonResponse({
     })
 
+
 class CheckUserView(View):
     def post(self, request):
-        if request.user.is_authenticated:
+        user_id = request.session.get("user")
+        if check_on_auto(user_id):
             return JsonResponse({'is_authenticated': True})
         else:
             return JsonResponse({'is_authenticated': False, 'error_message': 'Войдите в аккаунт'})
+
 
 def add_favorite(request, pk):
     user_id = request.session.get("user")

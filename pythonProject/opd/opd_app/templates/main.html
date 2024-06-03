@@ -28,12 +28,12 @@
             <ul class="menu__list">
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                        Избранное
+                        <img src="{% static 'sprite/black_heart.svg' %}">
                     </a>
                 </li>
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                        <div class="avatar"></div>
+                       <img class="avatar" src="{{ user.avatar.url }}">
                         <div class="avatar-name"></div>
                     </a>
                 </li>

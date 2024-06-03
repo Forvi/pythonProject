@@ -1,0 +1,135 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+}
+
+.path{
+    margin-top:10%;
+    width:80%;
+    margin-left:10%;
+    margin-right:10%;
+    position:relative;
+}
+.image_path{
+    margin-top:1%;
+    width:300px;
+    height:320px;
+    border-radius:16px;
+}
+.path_name{
+    position:relative;
+    top:-270px;
+    font-size:28px;
+    margin-left:33%;
+}
+
+.path_autor{
+    position:relative;
+    top:-370px;
+    left:33%;
+    font-size:18px;
+    color:#12CDAF;
+}
+
+.path_date{
+    position:relative;
+    top:-350px;
+    left:39%;
+    font-size:18px;
+    color: #6E6E6E
+}
+
+.path_length{
+    position:relative;
+    top:-300px;
+    left:33%;
+    font-size:18px;
+}
+
+.path_comm{
+    position:relative;
+    top:-322px;
+    left:44%;
+    font-size:18px;
+}
+.path_fav{
+    position:relative;
+   top:-345px;
+    left:51%;
+    font-size:18px;
+}
+
+.path_main_text{
+    font-size:23px;
+    position:relative;
+    top:-15vh;
+}
+
+.comment{
+    width:80%;
+    height:400px;
+
+    margin-left:10%;
+    margin-right:10%;
+}
+.custom-button {
+    text-align: center;
+    border-radius:16px;
+    display: inline-block;
+    font: 400 13.3333px Arial;
+    text-align: center;
+    padding: 10px 24px;
+    background-color: #F5F5F5; /* Цвет фона */
+    color: #000000; /* Цвет текста */
+    border-width: 2px;
+    border-style: outset;
+    border-color: #E0E0E0; /* Цвет границы */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+.custom-button:hover {
+    background-color: #E0E0E0; /* Цвет при наведении */
+}
+.custom-button:active {
+    background-color: #D0D0D0; /* Цвет при нажатии */
+}
+.avatar_user_comm{
+    width:15vh;
+    height:15vh;
+    border-radius: 50%;
+}
+.user_login{
+     position:relative;
+     top:-15vh;
+     left:17vh;
+     width:50%;
+
+}
+.user_date{
+    position:relative;
+    top:-19.1vh;
+    margin-left:22%;
+    color: #6E6E6E
+    width:50%;
+}
+.user_text{
+    position:relative;
+    top: -14.1vh;
+    left:17vh;
+    width:50%;
+
+}
