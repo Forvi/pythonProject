@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{{path.name}}</title>
+
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/path.css' %}">
+
 </head>
 <body>
 <header id="header" class="header" style="background-color:white">
@@ -52,7 +54,7 @@
         <p class="path_comm">{{ path.count_comment }}<img src="{% static 'sprite/comm.svg' %}"></p>
         <p class="path_fav">{{ path.count_product }} <img src="{% static 'sprite/icn_heart.svg' %}"></p>
 
-    <p class="path_main_text">{{ path.text }}</p>
+        <p class="path_main_text">{{ path.text }}</p>
 </div>
 <div class="comment">
     <textarea placeholder="Введите комментарий" style="width:99.5%;background-color:#F5F5F5;border:0;border-bottom: solid #B6B6B6;" id="text_comment"></textarea>
