@@ -143,16 +143,17 @@
 
 <script>
     ymaps.ready(init);
-    function init(){
-
+    async function init(){
+        let path_id = document.getElementById(path_pk).value;
+        const res = await fetch(`/get_coords/${path_id}`).then(res => res.json());
         var myMap = new ymaps.Map ('myMap', {
-            center: [60.0192715, 30.3104985], //координаты центра
+            center: [res.center_x, res.center_y], //координаты центра
             zoom: 11 //уровень приближения
         });
         let route = ymaps.route([
-        [60.082459, 30.264148],
+        [res.x1, res.y1],
 
-        [59.956084, 30.356849]
+        [res.x2, res.y2]
     ]).then(
         function (route) {
             myMap.geoObjects.add(route);

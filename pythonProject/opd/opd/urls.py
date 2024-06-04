@@ -17,6 +17,7 @@ urlpatterns = [
     path('create_comment/<pk>', create_comment, name='create_comment'),
     path('add_fav/<pk>', add_favorite, name="add_fav"),
     path('create_avatar', create_avatar, name="create_avatar"),
+    path('get_coords/<pk>', get_coords, name='get_coords'),
 ]
 
 if settings.DEBUG:
