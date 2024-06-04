@@ -111,6 +111,7 @@ class Redactor(View):
         return render(request, 'redactor.html')
 
     def post(self, request):
+
         form = Path(length=request.POST.get('path'),
                     hotel_Main_Img=request.FILES.get('image'),
                     name=request.POST.get('name'),
@@ -151,10 +152,13 @@ class Profile(View):
     def get(self, request):
         user_id = request.session.get("user")
         check_on_auto(user_id)
+
+        print(fav_path_user(user_id))
         if not check_on_auto(user_id):
             return HttpResponseRedirect('signup')
         context = {
             'paths': path_user(user_id),
+            'fav_paths': fav_path_user(user_id),
             'user': get_user_on_pk(user_id)
         }
         return render(request, 'profile.html', context=context)
@@ -201,3 +205,18 @@ def create_avatar(request):
     user_avatar.avatar = request.FILES.get('avatar100')
     user_avatar.save()
     return HttpResponseRedirect('../profile')
+
+
+def get_coords(request, pk):
+    path = pagePath(pk)
+    print(path.x1)
+
+    return JsonResponse({
+        "x1": path.x1,
+        "y1": path.y1,
+        "x2": path.x2,
+        "y2": path.y2,
+        "center_x": (float(path.x1) + float(path.x2)) / 2,
+        "center_y": (float(path.y1) + float(path.y2)) / 2,
+
+    })

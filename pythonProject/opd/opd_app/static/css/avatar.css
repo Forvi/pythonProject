@@ -1,0 +1,107 @@
+.profile_avatar{
+    margin-right:auto;
+    margin-left:auto;
+    text-align:center;
+    margin-top:10%;
+}
+.image_avatar{
+    width: 20%;
+    height: 20%;
+    border-radius: 100%;
+}
+.file_upload {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color:#D5D5D5;
+}
+
+.file_upload:hover {
+  background-color: #eee;
+}
+
+.file_upload label {
+  pointer-events: none; /* Это предотвращает возникновение событий мыши на метке */
+}
+.myButton {
+
+  border: none;
+  color: black;
+  padding: 12px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color:#D5D5D5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.welcome_text{
+    margin-top:1%;
+    font-size: 24px;
+}
+
+.my_paths {
+
+  position: absolute; /* абсолютное позиционирование */
+  top: 60%; /* позиционирование по вертикали на 50% от верхнего края */
+  border-top: 1px solid #CFCED9; /* верхняя рамка */
+  border-bottom: 1px solid #CFCED9; /* нижняя рамка */
+  background-color:red;
+  width:80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.my_paths_text{
+     position: absolute;
+     top: 100%;
+     left: 50%;
+     transform: translate(-50%, 80%);
+     font-size: 28px;
+}
+.path_container_profile{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 1072px;
+    gap: 16px;
+    position: absolute;
+    top: 10vh;
+    left: 0%;
+}
+
+.my_favorite {
+
+  position: absolute; /* абсолютное позиционирование */
+  top: 150%; /* позиционирование по вертикали на 50% от верхнего края */
+  border-top: 1px solid #CFCED9; /* верхняя рамка */
+  border-bottom: 1px solid #CFCED9; /* нижняя рамка */
+  background-color:red;
+  width:80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.my_favorite_text{
+     position: absolute;
+     top: 100%;
+     left: 50%;
+     transform: translate(-50%, 80%);
+     font-size: 28px;
+}
+.favorite_container_profile{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 1072px;
+    gap: 16px;
+    position: absolute;
+    top: 10vh;
+    left: 0%;
+}

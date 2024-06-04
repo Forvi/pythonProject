@@ -16,22 +16,34 @@ def loginacc(login, password):
         return user[0].pk
     return False
 
+
 def all_path():
     paths = Path.objects.all()
     return paths
+
 
 def pagePath(pk):
     path = Path.objects.filter(pk=pk)
     return path[0]
 
+
 def path_user(user_id):
     user = Path.objects.filter(author=user_id)
     return user
 
+
 def get_user_on_pk(user_id):
     return Users.objects.get(pk=user_id)
+
 
 def check_on_auto(user_id):
     if user_id:
         return True
     return False
+
+
+def fav_path_user(user_id):
+    fav_path = Favorites.objects.filter(user__id=user_id)
+    print(fav_path)
+    print(fav_path[0])
+    return fav_path

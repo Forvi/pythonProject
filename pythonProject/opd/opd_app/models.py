@@ -14,6 +14,11 @@ class Path(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     hotel_Main_Img = models.ImageField(upload_to='images/')
     author = models.ForeignKey(Users, on_delete=models.CASCADE)
+    x1 = models.CharField(max_length=30, default="0")
+    x2 = models.CharField(max_length=30, default="0")
+    y1 = models.CharField(max_length=30, default="0")
+    y2 = models.CharField(max_length=30, default="0")
+
 
     def count_product(self):
         return Favorites.objects.filter(path__pk=self.pk).count()

@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <title>movo</title>
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=27dc3277-8092-4403-8242-2c889ecbf239&load=package.controls,package.geoObjects"
+            type="text/javascript"></script>
+
+
+
 </head>
 <body>
 
@@ -33,7 +40,7 @@
                 </li>
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                       <img class="avatar" src="{{ user.avatar.url }}">
+                        <img class="avatar" src="{{ user.avatar.url }}">
                         <div class="avatar-name"></div>
                     </a>
                 </li>
@@ -56,80 +63,116 @@
     </div>
 </div>
 
-    <div class="main_content">
-        <h1 class="main_header">Популярные маршруты</h1>
-        <div class="card_container">
-            <div class="path_container">
-                {% for path in paths %}
-                <div class="path_card">
-                    <div class="path_item" onclick="document.location='{% url 'path' path.pk %}'">
-                        <img src="{{ path.hotel_Main_Img.url }}" alt="Hotel Image">
-                        <div class="card_info">
-                            <div>
-                                <h1 class="card_name cardName_text">{{ path.name }}</h1>
-                                <p class="card_length">{{ path.length }} км</p>
-                            </div>
+<div class="main_content">
+    <h1 class="main_header">Популярные маршруты</h1>
+    <div class="card_container">
+        <div class="path_container">
+            {% for path in paths %}
+            <div class="path_card">
+                <div class="path_item" onclick="document.location='{% url 'path' path.pk %}'">
+                    <img src="{{ path.hotel_Main_Img.url }}" alt="Hotel Image">
+                    <div class="card_info">
+                        <div>
+                            <h1 class="card_name cardName_text">{{ path.name }}</h1>
+                            <p class="card_length">{{ path.length }} км</p>
                         </div>
                     </div>
-                    <div class="likes_container" onclick="addfavorite({{ path.pk }})">
-                        <svg width="20" height="19" viewBox="0 0 20 19" fill="#F21832"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M13.4852 0.0934125C17.2886 -0.678974 20.44 3.48938 19.9318 7.0305C19.1984 12.1403 13.5035 15.2626 9.99288 18.3179C6.48225 15.2626 0.787314 12.1403 0.0539839 7.0305C-0.454221 3.48938 2.69711 -0.678974 6.5006 0.0934128C7.77356 0.351918 8.96471 1.0763 9.99287 1.94325C11.021 1.0763 12.2122 0.351918 13.4852 0.0934125Z"/>
-                        </svg>
-                        <p class="info_likes">{{ path.count_product }}</p>
-                    </div>
                 </div>
-                {% endfor %}
+                <div class="likes_container" onclick="addfavorite({{ path.pk }})">
+                    <svg width="20" height="19" viewBox="0 0 20 19" fill="#F21832"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M13.4852 0.0934125C17.2886 -0.678974 20.44 3.48938 19.9318 7.0305C19.1984 12.1403 13.5035 15.2626 9.99288 18.3179C6.48225 15.2626 0.787314 12.1403 0.0539839 7.0305C-0.454221 3.48938 2.69711 -0.678974 6.5006 0.0934128C7.77356 0.351918 8.96471 1.0763 9.99287 1.94325C11.021 1.0763 12.2122 0.351918 13.4852 0.0934125Z"/>
+                    </svg>
+                    <p class="info_likes">{{ path.count_product }}</p>
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        function longText() {
-            let textElements = document.getElementsByClassName("cardName_text");
+</div>
 
-            for (let textElement of textElements) {
-                let text = textElement.innerText;
+<div id="myMap" style="width: 700px; height: 700px;"></div>
 
-                if (text.length > 20) {
-                    let cutText = text.substring(0, 20) + "...";
-                    textElement.innerText = cutText;
-                }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function longText() {
+        let textElements = document.getElementsByClassName("cardName_text");
+
+        for (let textElement of textElements) {
+            let text = textElement.innerText;
+
+            if (text.length > 20) {
+                let cutText = text.substring(0, 20) + "...";
+                textElement.innerText = cutText;
             }
         }
+    }
 
-        longText();
+    longText();
 
-        addfavorite = async (pk) => {
-            event.stopPropagation();
-            const res = await fetch(`/add_fav/${pk}`).then(res => res.json());
-            location.reload();
-        }
+    addfavorite = async (pk) => {
+        event.stopPropagation();
+        const res = await fetch(`/add_fav/${pk}`).then(res => res.json());
+        location.reload();
+    }
 
-        $(document).ready(function () {
-            $("#createpath").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/check_user/",
-                    data: {
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
-                    },
-                    success: function (response) {
-                        if (response.is_authenticated) {
-                            window.location.href = "/redactor";
-                        } else {
-                            let errorMessageParagraph = document.getElementById("error-message");
-                            errorMessageParagraph.textContent = response.error_message;
-                        }
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        // позже сделать обработчик ошибок
+    $(document).ready(function () {
+        $("#createpath").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/check_user/",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    if (response.is_authenticated) {
+                        window.location.href = "/redactor";
+                    } else {
+                        let errorMessageParagraph = document.getElementById("error-message");
+                        errorMessageParagraph.textContent = response.error_message;
                     }
-                });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // позже сделать обработчик ошибок
+                }
             });
         });
-    </script>
-    <script src="{% static '/script/header_animation.js' %}"></script>
+    });
+</script>
+
+<script>
+    ymaps.ready(init);
+    async function init(){
+        let path_id = document.getElementById(path_pk).value;
+        const res = await fetch(`/get_coords/${path_id}`).then(res => res.json());
+        var myMap = new ymaps.Map ('myMap', {
+            center: [res.center_x, res.center_y], //координаты центра
+            zoom: 11 //уровень приближения
+        });
+        let route = ymaps.route([
+        [res.x1, res.y1],
+
+        [res.x2, res.y2]
+    ]).then(
+        function (route) {
+            myMap.geoObjects.add(route);
+
+            var routeLength = route.getLength(); // Длина маршрута
+            var firstPath = route.getPaths().get(0); // Первый путь
+
+            var firstPathLength = firstPath.getLength(); // Длина первого пути
+            var firtstPathTime = firstPath.getTime(); // Время без учета пробок
+            var firstPathFirstSegment = firstPath.getSegments()[0];// Первый сегмент первого пути
+            var firstPathFirstSegmentJamsTime =  firstPathFirstSegment.getJamsTime();// Время с пробками
+
+        },
+        function (error) {
+            alert("Возникла ошибка: " + error.message);
+        },
+    );
+      }
+</script>
+<script src="{% static '/script/header_animation.js' %}"></script>
 </body>
 </html>
