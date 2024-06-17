@@ -29,7 +29,7 @@ a {
 }
 
 body {
-    font-family: "Onest", sans-serif;
+    font-family: Onest, sans-serif;
     background: #F5F5F5;
     height: 100%;
 }
@@ -80,7 +80,7 @@ body {
 }
 
 .video-bg__content h1 {
-    font-family: "Evolventa", serif;
+    font-family: Evolventa, serif;
     font-size: 48px;
     line-height: 48px;
     margin-bottom: 16px;
@@ -174,7 +174,7 @@ body {
 }
 
 .create_button {
-    font-family: "Roboto", sans-serif;
+    font-family: Roboto, sans-serif;
     font-size: 14px;
     font-weight: 600;
     margin-top: 12px;
@@ -209,7 +209,7 @@ body {
 }
 
 .main_header {
-    font-family: "Evolventa", serif;
+    font-family: Evolventa, serif;
     text-align: center;
     font-weight: 400;
     font-size: 42px;

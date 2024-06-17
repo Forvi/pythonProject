@@ -111,12 +111,15 @@ class Redactor(View):
         return render(request, 'redactor.html')
 
     def post(self, request):
-
         form = Path(length=request.POST.get('path'),
                     hotel_Main_Img=request.FILES.get('image'),
                     name=request.POST.get('name'),
                     text=request.POST.get('text'),
-                    author=get_user_on_pk(request.session.get('user')))
+                    author=get_user_on_pk(request.session.get('user')),
+                    x1=request.POST.get('X1'),
+                    x2=request.POST.get('X2'),
+                    y1=request.POST.get('Y1'),
+                    y2=request.POST.get('Y2'))
         form.save()
         return HttpResponseRedirect('main')
 
@@ -209,14 +212,12 @@ def create_avatar(request):
 
 def get_coords(request, pk):
     path = pagePath(pk)
-    print(path.x1)
-
     return JsonResponse({
         "x1": path.x1,
         "y1": path.y1,
         "x2": path.x2,
         "y2": path.y2,
-        "center_x": (float(path.x1) + float(path.x2)) / 2,
-        "center_y": (float(path.y1) + float(path.y2)) / 2,
+        "center_x": str((float(path.x1) + float(path.x2)) / 2),
+        "center_y": str(round((float(path.y1) + float(path.y2)) / 2, 7)),
 
     })

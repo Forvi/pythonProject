@@ -35,7 +35,7 @@
                 </li>
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                        <div><img class="avatar" src="{{ author_id.avatar.url }}"></div>
+                        <div><img class="avatar" src="{% if author_id.author.avatar %}{{ author_id.avatar.url }}{% else %}{% static 'default.jpg' %}{% endif %}"></div>
                         <div class="avatar-name"></div>
                     </a>
                 </li>
@@ -55,6 +55,8 @@
         <p class="path_fav">{{ path.count_product }} <img src="{% static 'sprite/icn_heart.svg' %}"></p>
 
         <p class="path_main_text">{{ path.text }}</p>
+
+        <p id="path_pk" style="display:none;">{{ path.pk }}</p>
 </div>
 <div class="comment">
     <textarea placeholder="Введите комментарий" style="width:99.5%;background-color:#F5F5F5;border:0;border-bottom: solid #B6B6B6;" id="text_comment"></textarea>
@@ -63,7 +65,7 @@
     {% if comment|length != 0 %}
         {% for i in comment %}
         <div style="height:35%;">
-            <img class="avatar_user_comm" src="{{ i.author.avatar.url }}">
+            <img class="avatar_user_comm" src="{% if i.author.avatar %}{{ i.author.avatar.url }}{% else %}{% static 'default.jpg' %}{% endif %}">
             <p class="user_login"><b>{{ i.author.login }}</b></p>
             <p class="user_text">{{ i.text }}</p>
             <p class="user_date">{{ i.date }}</p>
@@ -74,59 +76,46 @@
 
 </div>
 </main>
-<!-- Это первый комментарий, он не будет виден на странице
-<div>
-    <div>
-        <h1 style="position:absolute;left:60%;">{{ path.name }}</h1>
-        <p style="color: red;">{{ path.date }}</p>
-        <img style="position:absolute;left:20%;" src="{{ path.hotel_Main_Img.url }}">
-        <p style="position:absolute;left:60%; margin-top: 70px">{{ path.text }}</p>
-        {% if path.author.pk == author_id %}
-        <h2>Редактирование</h2>
-        <form method="post" name="" style="display: inline-block;" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div style="margin-bottom: 10px;">
-                <textarea placeholder="Описание" name="text"></textarea>
-            </div>
-            <div style="margin-bottom: 10px;">
-                <input placeholder="Протяженность" name="length" type="number">
-            </div>
-            <div style="margin-bottom: 10px;">
-                <input placeholder="Название" name="name">
-            </div>
-            <div style="margin-bottom: 10px;">
-                <input placeholder="Маршрут" name="image" id="image" type="file" multiple accept="image/*">
 
-            </div>
-            <div style="margin-bottom: 10px;">
-                <input type="submit">
-            </div>
-            <p style="color: red;">{{ error_message }}</p>
-        </form>
-        {% endif %}
-        <div name="comment">
-            <textarea id="text_comment"></textarea>
-            <a href="#" onclick="create_comment({{ path.pk }})">Добавить</a>
-            <p id="comment_error-mesage"></p>
+<div id="myMap"  class="map"></div>
 
-        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=27dc3277-8092-4403-8242-2c889ecbf239&load=package.controls,package.geoObjects"
+            type="text/javascript"></script>
 
-        {% if comment|length != 0 %}
-        {% for i in comment %}
-        <div style="border: 1px solid black; margin-bottom: 4px;">
-            {{ i.author.login }}
-            {{ i.text }}
-            {{ i.date }}
-        </div>
+<script>
+    ymaps.ready(init);
+    async function init(){
+        let path_id = document.getElementById('path_pk').textContent;
+        const res = await fetch(`/get_coords/${path_id}`).then(res => res.json());
+        var myMap = new ymaps.Map ('myMap', {
+            center: [res.center_x, res.center_y], //координаты центра
+            zoom: 13 //уровень приближения
+        });
+        let route = ymaps.route([
+        [res.x1, res.y1],
 
-        {% endfor %}
-        {% else %}
-        <div>Пусто</div>
-        {% endif %}
+        [res.x2, res.y2]
+    ]).then(
+        function (route) {
+            myMap.geoObjects.add(route);
 
-    </div>
-</div>
--->
+            var routeLength = route.getLength(); // Длина маршрута
+            var firstPath = route.getPaths().get(0); // Первый путь
+
+            var firstPathLength = firstPath.getLength(); // Длина первого пути
+            var firtstPathTime = firstPath.getTime(); // Время без учета пробок
+            var firstPathFirstSegment = firstPath.getSegments()[0];// Первый сегмент первого пути
+            var firstPathFirstSegmentJamsTime =  firstPathFirstSegment.getJamsTime();// Время с пробками
+
+        },
+        function (error) {
+            alert("Возникла ошибка: " + error.message);
+        },
+    );
+      }
+</script>
+
 <script>
     create_comment = async (pk) => {
         const error_message = document.getElementById('comment_error-mesage')

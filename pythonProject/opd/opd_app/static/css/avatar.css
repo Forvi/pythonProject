@@ -50,7 +50,7 @@
   top: 60%; /* позиционирование по вертикали на 50% от верхнего края */
   border-top: 1px solid #CFCED9; /* верхняя рамка */
   border-bottom: 1px solid #CFCED9; /* нижняя рамка */
-  background-color:red;
+
   width:80%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -81,7 +81,7 @@
   top: 150%; /* позиционирование по вертикали на 50% от верхнего края */
   border-top: 1px solid #CFCED9; /* верхняя рамка */
   border-bottom: 1px solid #CFCED9; /* нижняя рамка */
-  background-color:red;
+
   width:80%;
   left: 50%;
   transform: translate(-50%, -50%);

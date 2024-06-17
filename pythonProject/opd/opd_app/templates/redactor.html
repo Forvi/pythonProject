@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
-     <link rel="stylesheet" href="{% static 'css/redactor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/redactor.css' %}">
 </head>
 <body style="background-color:white;">
 <header id="header" class="header">
@@ -27,11 +27,6 @@
         <nav class="menu">
             <ul class="menu__list">
                 <li class="menu__item">
-                    <a class="menu__link" href="#" style="color:black;">
-                        Избранное
-                    </a>
-                </li>
-                <li class="menu__item">
                     <a class="menu__link" href="#">
                         <div class="avatar"></div>
                         <div class="avatar-name"></div>
@@ -41,30 +36,77 @@
         </nav>
     </div>
 </header>
+
+<p class="create_path">Создание маршрута</p>
 <div class="redactor">
-    <p class="create_path">Создание маршрута</p>
     <form class="form_redactor" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="input_form input_form_name">
-            <input placeholder="Введите название..." name="name" style="width: 100%; box-sizing: border-box;">
+        <div class="grey_field">
+            <div>
+                <input placeholder="Введите название..." name="name" class="redactor_name">
+            </div>
+            <div>
+                <textarea placeholder="Описание маршрута" name="text" class="redactor_info" id="text"></textarea>
+            </div>
+            <div>
+                <input placeholder="Протяженность" name="path" min="0" max="100" type="number" class="redactor_length">
+            </div>
+
+            <div class="text_coordinate">Введите координаты</div>
+            <div class="form_coordinate">
+                <div>
+                    <input placeholder="X1" name="X1" class="coordinate" type="text">
+                </div>
+                <div>
+                    <input placeholder="Y1" name="Y1" class="coordinate" type="text">
+                </div>
+                <div>
+                    <input placeholder="X2" name="X2" class="coordinate" type="text">
+                </div>
+                <div>
+                    <input placeholder="Y2" name="Y2" class="coordinate" type="text">
+                </div>
+            </div>
         </div>
-        <div style="margin-bottom: 10px;">
-            <textarea placeholder="Краткое описание" name="text" style="width: 100%; box-sizing: border-box;"></textarea>
+
+        <div class="form_bottom">
+            <div>
+                <label for="image" class="button_label">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.7778 5.77778C12.7778 5.34822 12.4296 5 12 5C11.5704 5 11.2222 5.34822 11.2222 5.77778V11.2222H5.77778C5.34822 11.2222 5 11.5704 5 12C5 12.4296 5.34822 12.7778 5.77778 12.7778H11.2222V18.2222C11.2222 18.6518 11.5704 19 12 19C12.4296 19 12.7778 18.6518 12.7778 18.2222V12.7778H18.2222C18.6518 12.7778 19 12.4296 19 12C19 11.5704 18.6518 11.2222 18.2222 11.2222H12.7778V5.77778Z"
+                              fill="#A7A7A7"/>
+                    </svg>
+                    Загрузить картинку</label>
+                <input placeholder="Маршрут" name="image" id="image" type="file" multiple accept="image/*"
+                       style="display:none;">
+            </div>
+            <div>
+                <button type="submit" class="form_button">Опубликовать</button>
+            </div>
+            <p style="color: red;">{{ error_message }}</p>
         </div>
-        <div style="margin-bottom: 10px;">
-            <input placeholder="Протяженность" name="path" type="number" style="width: 100%; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 10px;">
-            <input placeholder="Маршрут" name="image" id="image" type="file" multiple accept="image/*"
-                   style="width: 100%; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 10px;">
-            <input type="submit" style="width: 100%; box-sizing: border-box;">
-        </div>
-        <p style="color: red;">{{ error_message }}</p>
     </form>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    const textarea = document.getElementById('text');
 
+    const adjustHeight = () => {
+        textarea.style.height = '32px';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+
+        if (textarea.scrollHeight > parseInt(getComputedStyle(textarea).maxHeight)) {
+            textarea.style.height = getComputedStyle(textarea).maxHeight;
+            textarea.style.overflowY = 'scroll';
+        } else {
+            textarea.style.overflowY = 'hidden';
+        }
+    };
+
+    textarea.addEventListener('input', adjustHeight);
+});
+
+</script>
 </body>
 </html>
