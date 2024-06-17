@@ -33,8 +33,10 @@ def path_user(user_id):
 
 
 def get_user_on_pk(user_id):
-    return Users.objects.get(pk=user_id)
-
+    try:
+        return Users.objects.get(pk=user_id)
+    except:
+        return False
 
 def check_on_auto(user_id):
     if user_id:
