@@ -156,7 +156,6 @@ class Profile(View):
         user_id = request.session.get("user")
         check_on_auto(user_id)
 
-        print(fav_path_user(user_id))
         if not check_on_auto(user_id):
             return HttpResponseRedirect('signup')
         context = {

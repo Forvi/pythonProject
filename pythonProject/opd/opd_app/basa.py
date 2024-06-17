@@ -45,7 +45,8 @@ def check_on_auto(user_id):
 
 
 def fav_path_user(user_id):
-    fav_path = Favorites.objects.filter(user__id=user_id)
-    print(fav_path)
-    print(fav_path[0])
-    return fav_path
+    try:
+        fav_path = Favorites.objects.filter(user__id=user_id)
+        return fav_path
+    except:
+        return []
