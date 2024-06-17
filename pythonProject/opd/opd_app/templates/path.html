@@ -35,7 +35,7 @@
                 </li>
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                        <div><img class="avatar" src="{% if user.author.avatar %}{{ user.author.avatar.url }}{% else %}{% static 'default.png' %}{% endif %}"></div>
+                        <div><img class="avatar" src="{% if author_id.author.avatar %}{{ author_id.avatar.url }}{% else %}{% static 'default.jpg' %}{% endif %}"></div>
                         <div class="avatar-name"></div>
                     </a>
                 </li>
@@ -65,7 +65,7 @@
     {% if comment|length != 0 %}
         {% for i in comment %}
         <div style="height:35%;">
-            <img class="avatar_user_comm" src="{% if i.author.avatar %}{{ i.author.avatar.url }}{% else %}{% static 'default.png' %}{% endif %}">
+            <img class="avatar_user_comm" src="{% if i.author.avatar %}{{ i.author.avatar.url }}{% else %}{% static 'default.jpg' %}{% endif %}">
             <p class="user_login"><b>{{ i.author.login }}</b></p>
             <p class="user_text">{{ i.text }}</p>
             <p class="user_date">{{ i.date }}</p>
@@ -77,7 +77,7 @@
 </div>
 </main>
 
-<div id="myMap" class="map" style="width: 500px; height: 500px;"></div>
+<div id="myMap"  class="map"></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=27dc3277-8092-4403-8242-2c889ecbf239&load=package.controls,package.geoObjects"
@@ -90,7 +90,7 @@
         const res = await fetch(`/get_coords/${path_id}`).then(res => res.json());
         var myMap = new ymaps.Map ('myMap', {
             center: [res.center_x, res.center_y], //координаты центра
-            zoom: 11 //уровень приближения
+            zoom: 13 //уровень приближения
         });
         let route = ymaps.route([
         [res.x1, res.y1],

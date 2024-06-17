@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>movo</title>
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=27dc3277-8092-4403-8242-2c889ecbf239&load=package.controls,package.geoObjects"
-            type="text/javascript"></script>
+
+
 </head>
 <body>
 
@@ -29,11 +29,13 @@
         <nav class="menu">
             <ul class="menu__list">
                 <li class="menu__item">
+                    <a class="menu__link" href="#">
+                        <img src="{% static 'sprite/black_heart.svg' %}">
+                    </a>
                 </li>
                 <li class="menu__item">
-                    <a class="menu__link" href="#">
-                        <img class="avatar"
-                             src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'default.png' %}{% endif %}">
+                    <a class="menu__link" href="profile">
+                        <img class="avatar" src="{{ user.avatar.url }}">
                         <div class="avatar-name"></div>
                     </a>
                 </li>
@@ -41,16 +43,6 @@
         </nav>
     </div>
 </header>
-
-<div class="menu__navigate" id="menu__navigate">
-    <ul class="_list">
-        <li class="element">Перейти</li>
-        <li class="element">Избранное</li>
-        <li class="element">Создать маршрут</li>
-        <li class="element">Настройки</li>
-        <li class="element" style="color: #F21832;">Выйти</li>
-    </ul>
-</div>
 
 <div class="video-bg">
     <div class="imageblock"></div>
@@ -60,7 +52,7 @@
         <p>Лучшие места города от лица жителей</p>
 
         <button id="createpath" class="create_button">
-            Создать путь
+            <a href="redactor">Создать путь</a>
         </button>
         <p id="error-message"></p>
     </div>
@@ -81,16 +73,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="likes">
-                    <div class="likes_container" onclick="addfavorite({{ path.pk }})">
-                        <svg width="20" height="19" viewBox="0 0 20 19" fill="#F21832"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M13.4852 0.0934125C17.2886 -0.678974 20.44 3.48938 19.9318 7.0305C19.1984 12.1403 13.5035 15.2626 9.99288 18.3179C6.48225 15.2626 0.787314 12.1403 0.0539839 7.0305C-0.454221 3.48938 2.69711 -0.678974 6.5006 0.0934128C7.77356 0.351918 8.96471 1.0763 9.99287 1.94325C11.021 1.0763 12.2122 0.351918 13.4852 0.0934125Z"/>
-                        </svg>
-                        <p class="info_likes">{{ path.count_product }}</p>
-                    </div>
+                <div class="likes_container" onclick="addfavorite({{ path.pk }})">
+                    <svg width="20" height="19" viewBox="0 0 20 19" fill="#F21832"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M13.4852 0.0934125C17.2886 -0.678974 20.44 3.48938 19.9318 7.0305C19.1984 12.1403 13.5035 15.2626 9.99288 18.3179C6.48225 15.2626 0.787314 12.1403 0.0539839 7.0305C-0.454221 3.48938 2.69711 -0.678974 6.5006 0.0934128C7.77356 0.351918 8.96471 1.0763 9.99287 1.94325C11.021 1.0763 12.2122 0.351918 13.4852 0.0934125Z"/>
+                    </svg>
+                    <p class="info_likes">{{ path.count_product }}</p>
                 </div>
             </div>
             {% endfor %}
@@ -98,7 +87,51 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="{% static '/script/main_scripts.js' %}"></script>
+<script>
+    function longText() {
+        let textElements = document.getElementsByClassName("cardName_text");
+
+        for (let textElement of textElements) {
+            let text = textElement.innerText;
+
+            if (text.length > 20) {
+                let cutText = text.substring(0, 20) + "...";
+                textElement.innerText = cutText;
+            }
+        }
+    }
+
+    longText();
+
+    addfavorite = async (pk) => {
+        event.stopPropagation();
+        const res = await fetch(`/add_fav/${pk}`).then(res => res.json());
+        location.reload();
+    }
+
+    $(document).ready(function () {
+        $("#createpath").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/check_user/",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    if (response.is_authenticated) {
+                        window.location.href = "/redactor";
+                    } else {
+                        let errorMessageParagraph = document.getElementById("error-message");
+                        errorMessageParagraph.textContent = response.error_message;
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // позже сделать обработчик ошибок
+                }
+            });
+        });
+    });
+</script>
+<script src="{% static '/script/header_animation.js' %}"></script>
 </body>
 </html>

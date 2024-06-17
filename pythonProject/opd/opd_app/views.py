@@ -55,6 +55,7 @@ class Registration(View):
                 return render(request, 'registration.html', context=context)
 
 
+
 class Login(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -154,6 +155,8 @@ class Profile(View):
     def get(self, request):
         user_id = request.session.get("user")
         check_on_auto(user_id)
+
+        print(fav_path_user(user_id))
         if not check_on_auto(user_id):
             return HttpResponseRedirect('signup')
         context = {
@@ -161,8 +164,6 @@ class Profile(View):
             'fav_paths': fav_path_user(user_id),
             'user': get_user_on_pk(user_id)
         }
-        print('_______________________')
-        print(user_id)
         return render(request, 'profile.html', context=context)
 
 
@@ -211,13 +212,12 @@ def create_avatar(request):
 
 def get_coords(request, pk):
     path = pagePath(pk)
-    print(path.x1)
-
     return JsonResponse({
         "x1": path.x1,
         "y1": path.y1,
         "x2": path.x2,
         "y2": path.y2,
-        "center_x": (float(path.x1) + float(path.x2)) / 2,
-        "center_y": (float(path.y1) + float(path.y2)) / 2,
+        "center_x": str((float(path.x1) + float(path.x2)) / 2),
+        "center_y": str(round((float(path.y1) + float(path.y2)) / 2, 7)),
+
     })

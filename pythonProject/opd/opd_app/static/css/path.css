@@ -121,7 +121,7 @@ time, mark, audio, video {
 }
 .user_date{
     position:relative;
-    top:-19.1vh;
+    top:-21.1vh;
     margin-left:22%;
     color: #6E6E6E
     width:50%;
@@ -132,4 +132,11 @@ time, mark, audio, video {
     left:17vh;
     width:50%;
 
+}
+.map{
+    position:absolute;
+    top:1%;
+    left:59%;
+    width:450px;
+    height:450px;
 }
