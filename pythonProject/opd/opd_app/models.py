@@ -1,5 +1,5 @@
 from django.db import models
-
+from PIL import Image
 
 class Users(models.Model):
     login = models.CharField(max_length=5, null=False)

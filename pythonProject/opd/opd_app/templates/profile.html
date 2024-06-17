@@ -33,7 +33,7 @@
                 </li>
                 <li class="menu__item">
                     <a class="menu__link" href="#">
-                        <div><img class="avatar" src="{{ user.avatar.url }}"></div>
+                        <div><img class="avatar" src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'default.png' %}{% endif %}"></div>
                         <div class="avatar-name"></div>
                     </a>
                 </li>
@@ -44,7 +44,7 @@
 
 <div class="profile_avatar">
     {% if user.avatar is None %}
-    <img class="image_avatar" src="{% static 'default.jpg' %}">
+    <img class="image_avatar" src="{% static 'default.png' %}">
     {% else %}
     <img class="image_avatar" src="{{ user.avatar.url }}">
     <p class="welcome_text"><b>{{ user.login }}</b></p>

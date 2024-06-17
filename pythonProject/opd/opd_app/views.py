@@ -55,7 +55,6 @@ class Registration(View):
                 return render(request, 'registration.html', context=context)
 
 
-
 class Login(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -111,12 +110,15 @@ class Redactor(View):
         return render(request, 'redactor.html')
 
     def post(self, request):
-
         form = Path(length=request.POST.get('path'),
                     hotel_Main_Img=request.FILES.get('image'),
                     name=request.POST.get('name'),
                     text=request.POST.get('text'),
-                    author=get_user_on_pk(request.session.get('user')))
+                    author=get_user_on_pk(request.session.get('user')),
+                    x1=request.POST.get('X1'),
+                    x2=request.POST.get('X2'),
+                    y1=request.POST.get('Y1'),
+                    y2=request.POST.get('Y2'))
         form.save()
         return HttpResponseRedirect('main')
 
@@ -152,8 +154,6 @@ class Profile(View):
     def get(self, request):
         user_id = request.session.get("user")
         check_on_auto(user_id)
-
-        print(fav_path_user(user_id))
         if not check_on_auto(user_id):
             return HttpResponseRedirect('signup')
         context = {
@@ -161,6 +161,8 @@ class Profile(View):
             'fav_paths': fav_path_user(user_id),
             'user': get_user_on_pk(user_id)
         }
+        print('_______________________')
+        print(user_id)
         return render(request, 'profile.html', context=context)
 
 
@@ -218,5 +220,4 @@ def get_coords(request, pk):
         "y2": path.y2,
         "center_x": (float(path.x1) + float(path.x2)) / 2,
         "center_y": (float(path.y1) + float(path.y2)) / 2,
-
     })

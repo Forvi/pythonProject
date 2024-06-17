@@ -87,7 +87,7 @@ body {
 }
 
 .video-bg__content p {
-    font-family: Onest, sans-serif;
+    font-family: "Onest", sans-serif;
     font-size: 16px;
     line-height: 20px;
 }
@@ -162,8 +162,37 @@ body {
     font-size: 16px;
 }
 
-.upperinfo {
+.menu__navigate {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(34, 34, 34, 16%);
+    border-radius: 4px;
+    background: white;
+    padding: 4px;
+    width: 224px;
+    position: relative;
+    left: 1425px;
+    top: 80px;
+    z-index: 3;
+}
 
+.element {
+    padding: 4px 8px;
+    color: #222222;
+    font-family: "Onest", sans-serif;
+    list-style-type: none;
+    height: 28px;
+    width: 208px;
+    cursor: pointer;
+    background: white;
+    align-content: center;
+}
+
+.element:hover {
+    background: rgba(34, 34, 34, 4%);
+}
+
+.upperinfo {
     border: 1px solid red;
 }
 
@@ -174,7 +203,7 @@ body {
 }
 
 .create_button {
-    font-family: "Roboto", sans-serif;
+    font-family: "Onest", sans-serif;
     font-size: 14px;
     font-weight: 600;
     margin-top: 12px;
@@ -260,10 +289,18 @@ body {
     justify-content: space-between;
 }
 
+.likes {
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    bottom: 40px;
+    position: relative;
+}
+
 .likes_container {
     z-index: 10;
     display: flex;
-    gap: 8px;
+    gap: 4px;
 }
 
 .likes_container svg {
@@ -274,8 +311,8 @@ body {
     fill: #C11328;
 }
 
-.card_info .info_likes {
-    font-family: Onest, sans-serif;
+.info_likes {
+    font-family: "Onest", sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 143%;
@@ -283,7 +320,7 @@ body {
 }
 
 .path_item card_length {
-    font-family: Onest, sans-serif;
+    font-family: "Onest", sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
