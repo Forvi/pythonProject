@@ -87,7 +87,7 @@ body {
 }
 
 .video-bg__content p {
-    font-family: Onest, sans-serif;
+    font-family: "Onest", sans-serif;
     font-size: 16px;
     line-height: 20px;
 }
@@ -110,11 +110,18 @@ body {
 
 .header:hover {
     background-color: white;
-    color: #222222;
+}
+
+.logotype {
+    fill: white;
 }
 
 .header_effects, .header__container:hover {
     color: #222222;
+}
+
+.header:hover .logotype {
+    fill: black;
 }
 
 .header__container {
@@ -136,16 +143,6 @@ body {
     color: #222222;
 }
 
-.logo path {
-    transition: fill 0.3s;
-    display: block;
-}
-
-.logo__img {
-    display: block;
-    height: 40px;
-}
-
 .menu__list {
     display: flex;
     align-items: center;
@@ -160,6 +157,10 @@ body {
 
 .menu__link {
     font-size: 16px;
+}
+
+.avatar {
+    border-radius: 50%;
 }
 
 .upperinfo {
@@ -235,6 +236,7 @@ body {
     width: 256px;
     height: 324px;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .path_item img {
@@ -264,6 +266,14 @@ body {
     z-index: 10;
     display: flex;
     gap: 8px;
+}
+
+.likes {
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: flex-end;
+    bottom: 40px;
 }
 
 .likes_container svg {

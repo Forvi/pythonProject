@@ -18,6 +18,7 @@ urlpatterns = [
     path('add_fav/<pk>', add_favorite, name="add_fav"),
     path('create_avatar', create_avatar, name="create_avatar"),
     path('get_coords/<pk>', get_coords, name='get_coords'),
+    path('redact/<pk>', Redact.as_view(), name='Redact'),
 ]
 
 if settings.DEBUG:

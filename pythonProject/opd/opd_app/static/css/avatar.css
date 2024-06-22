@@ -1,70 +1,90 @@
-.profile_avatar{
-    margin-right:auto;
-    margin-left:auto;
-    text-align:center;
-    margin-top:10%;
+.profile_avatar {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top: 10%;
 }
-.image_avatar{
-    width: 20%;
-    height: 20%;
+
+.image_avatar {
+    width: 180px;
+    height: 180px;
     border-radius: 100%;
+    object-fit: cover;
 }
+
 .file_upload {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color:#D5D5D5;
+    font-family: "Onest", sans-serif;
+    border: none;
+    outline: none;
+    color: #222222;
+    padding: 12px 32px;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #D5D5D5;
+    transition: background-color 0.3s;
 }
 
 .file_upload:hover {
-  background-color: #eee;
+    background-color: #A1A1A1;
 }
 
 .file_upload label {
-  pointer-events: none; /* Это предотвращает возникновение событий мыши на метке */
+    pointer-events: none;
 }
-.myButton {
 
-  border: none;
-  color: black;
-  padding: 12px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-  background-color:#D5D5D5;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.myButton {
+    font-family: "Onest", sans-serif;
+    border: none;
+    outline: none;
+    color: #222222;
+    padding: 12px 32px;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #16F4D0;
+    border-radius: 6px;
+    transition: background-color 0.3s;
 }
-.welcome_text{
-    margin-top:1%;
-    font-size: 24px;
+
+.myButton:hover {
+    background-color: #12CDAF;
+}
+
+.welcome_text {
+    margin-top: 1%;
+    font-family: "Onest", sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: 0.03em;
+    color: #222222;
 }
 
 .my_paths {
 
-  position: absolute; /* абсолютное позиционирование */
-  top: 60%; /* позиционирование по вертикали на 50% от верхнего края */
-  border-top: 1px solid #CFCED9; /* верхняя рамка */
-  border-bottom: 1px solid #CFCED9; /* нижняя рамка */
+    position: absolute; /* абсолютное позиционирование */
+    top: 60%; /* позиционирование по вертикали на 50% от верхнего края */
+    border-top: 1px solid #CFCED9; /* верхняя рамка */
+    border-bottom: 1px solid #CFCED9; /* нижняя рамка */
 
-  width:80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
 }
 
-.my_paths_text{
-     position: absolute;
-     top: 100%;
-     left: 50%;
-     transform: translate(-50%, 80%);
-     font-size: 28px;
+.my_paths_text {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 80%);
+    font-size: 28px;
 }
-.path_container_profile{
+
+.path_container_profile {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -77,25 +97,26 @@
 
 .my_favorite {
 
-  position: absolute; /* абсолютное позиционирование */
-  top: 150%; /* позиционирование по вертикали на 50% от верхнего края */
-  border-top: 1px solid #CFCED9; /* верхняя рамка */
-  border-bottom: 1px solid #CFCED9; /* нижняя рамка */
+    position: absolute; /* абсолютное позиционирование */
+    top: 150%; /* позиционирование по вертикали на 50% от верхнего края */
+    border-top: 1px solid #CFCED9; /* верхняя рамка */
+    border-bottom: 1px solid #CFCED9; /* нижняя рамка */
 
-  width:80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
 }
 
-.my_favorite_text{
-     position: absolute;
-     top: 100%;
-     left: 50%;
-     transform: translate(-50%, 80%);
-     font-size: 28px;
+.my_favorite_text {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 80%);
+    font-size: 28px;
 }
-.favorite_container_profile{
+
+.favorite_container_profile {
     display: flex;
     align-items: center;
     flex-wrap: wrap;

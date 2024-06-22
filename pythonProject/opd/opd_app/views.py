@@ -55,7 +55,6 @@ class Registration(View):
                 return render(request, 'registration.html', context=context)
 
 
-
 class Login(View):
     def get(self, request):
         return render(request, 'login.html')
@@ -106,9 +105,12 @@ class Redactor(View):
     def get(self, request):
         user_id = request.session.get("user")
         check_on_auto(user_id)
+        context = {
+            'user': get_user_on_pk(user_id)
+        }
         if not check_on_auto(user_id):
             return HttpResponseRedirect('signup')
-        return render(request, 'redactor.html')
+        return render(request, 'redactor.html', context=context)
 
     def post(self, request):
         form = Path(length=request.POST.get('path'),
@@ -189,6 +191,50 @@ class CheckUserView(View):
             return JsonResponse({'is_authenticated': True})
         else:
             return JsonResponse({'is_authenticated': False, 'error_message': 'Войдите в аккаунт'})
+
+
+class Redact(View):
+    def get(self, request, pk):
+        user_id = request.session.get("user")
+        check_on_auto(user_id)
+        context = {
+            'user': get_user_on_pk(user_id)
+        }
+        if not check_on_auto(user_id):
+            return HttpResponseRedirect('signup')
+        return render(request, 'redact.html', context=context)
+
+    def post(self, request, pk):
+        path = Path.objects.get(id=pk)
+        text_area = request.POST.get('text')
+        length = request.POST.get('length')
+        print("?________")
+        print(length)
+        name = request.POST.get('name')
+        image = request.FILES.get('image')
+        x1 = request.POST.get('X1')
+        x2 = request.POST.get('X2')
+        y1 = request.POST.get('Y1')
+        y2 = request.POST.get('Y2')
+
+        if len(text_area) != 0:
+            path.text_area = text_area
+        if len(length) != 0:
+            path.length = request.POST.get('length')
+        if len(name) != 0:
+            path.name = request.POST.get('name')
+        if image is not None:
+            path.hotel_Main_Img = image
+        if len(x1) != 0:
+            path.x1 = x1
+        if len(x2) != 0:
+            path.x2 = x2
+        if len(y1) != 0:
+            path.y1 = y1
+        if len(y2) != 0:
+            path.y2 = y2
+        path.save()
+        return HttpResponseRedirect('../path/' + str(pk))
 
 
 def add_favorite(request, pk):

@@ -43,7 +43,6 @@ def check_on_auto(user_id):
         return True
     return False
 
-
 def fav_path_user(user_id):
     try:
         fav_path = Favorites.objects.filter(user__id=user_id)
